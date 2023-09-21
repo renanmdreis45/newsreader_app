@@ -16,6 +16,7 @@ class NewsScreen extends StatelessWidget {
           children: [
             const SizedBox(height: 20,),
             SingleChildScrollView(
+              physics: const ScrollPhysics(),
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: categories.map((category) {
@@ -28,7 +29,13 @@ class NewsScreen extends StatelessWidget {
                   );
                 }).toList(),
               ),
-            )
+            ),
+            const SizedBox(height: 20,),
+            ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: 5,
+              itemBuilder: (context, index) {})
           ],
         ),
       ),
