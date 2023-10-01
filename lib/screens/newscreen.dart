@@ -67,7 +67,14 @@ class _NewsScreenState extends State<NewsScreen> {
                       physics: const NeverScrollableScrollPhysics(),
                       itemCount: newsList?.length,
                       itemBuilder: (context, index) {
-                        return const NewsHeadline();
+                        NewsModel news = newsList![index];
+                        return NewsHeadline(
+                          news.author == null ? '' : news.author, 
+                          news.title == null ? '' : news.title,
+                          news.description == null ? '' : news.title, 
+                          news.img == null ? '' : news.title, 
+                          news.date == null ? '' : news.date, 
+                          news.url == null ? '' : news.url);
                       });
                 })
           ],
