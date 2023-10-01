@@ -3,6 +3,7 @@ import 'package:newsreader_app/models/newsmodel.dart';
 import 'package:newsreader_app/utils/utils.dart';
 import 'package:newsreader_app/widgets/newsheadline.dart';
 import 'package:newsreader_app/bloc/get_news_bloc.dart';
+import 'package:newsreader_app/bloc/select_category_bloc.dart';
 
 class NewsScreen extends StatefulWidget {
   const NewsScreen({super.key});
@@ -13,6 +14,7 @@ class NewsScreen extends StatefulWidget {
 
 class _NewsScreenState extends State<NewsScreen> {
   GetNewsBloc? getNewsBloc;
+  SelectCategoryBloc? selectCategoryBloc;
 
   @override
   void initState() {
@@ -36,21 +38,35 @@ class _NewsScreenState extends State<NewsScreen> {
             const SizedBox(
               height: 20,
             ),
-            SingleChildScrollView(
-              physics: const ScrollPhysics(),
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: categories.map((category) {
-                  return Padding(
-                    padding: const EdgeInsets.only(left: 15),
-                    child: Text(
-                      category,
-                      style: textStyle(23, Colors.grey, FontWeight.w600),
+            StreamBuilder(
+                stream: selectCategoryBloc!.categoryStream,
+                builder: (context, snapshot) {
+                  return SingleChildScrollView(
+                    physics: const ScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: categories.map((category) {
+                        return Padding(
+                          padding: const EdgeInsets.only(left: 15),
+                          child: InkWell(
+                            onTap: () {
+                              selectCategoryBloc!.selectCategory(category);
+                            },
+                            child: Text(
+                              category,
+                              style: textStyle(
+                                  23,
+                                  snapshot.data == category
+                                      ? Colors.black
+                                      : Colors.grey,
+                                  FontWeight.w600),
+                            ),
+                          ),
+                        );
+                      }).toList(),
                     ),
                   );
-                }).toList(),
-              ),
-            ),
+                }),
             const SizedBox(
               height: 20,
             ),
@@ -69,12 +85,12 @@ class _NewsScreenState extends State<NewsScreen> {
                       itemBuilder: (context, index) {
                         NewsModel news = newsList![index];
                         return NewsHeadline(
-                          news.author == null ? '' : news.author, 
-                          news.title == null ? '' : news.title,
-                          news.description == null ? '' : news.title, 
-                          news.img == null ? '' : news.title, 
-                          news.date == null ? '' : news.date, 
-                          news.url == null ? '' : news.url);
+                            news.author == null ? '' : news.author,
+                            news.title == null ? '' : news.title,
+                            news.description == null ? '' : news.title,
+                            news.img == null ? '' : news.title,
+                            news.date == null ? '' : news.date,
+                            news.url == null ? '' : news.url);
                       });
                 })
           ],
