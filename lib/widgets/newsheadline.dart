@@ -21,11 +21,12 @@ class NewsHeadline extends StatelessWidget {
       child: Card(
         elevation: 5,
         child: Row(children: [
-          img == '' ? Container() : Image(
-            width: MediaQuery.of(context).size.width * 0.33,
-            height: 140,
-            image: NetworkImage(img)
-          ),
+          img == ''
+              ? Container()
+              : Image(
+                  width: MediaQuery.of(context).size.width * 0.33,
+                  height: 140,
+                  image: NetworkImage(img)),
           const SizedBox(
             width: 10,
           ),
@@ -34,8 +35,7 @@ class NewsHeadline extends StatelessWidget {
             padding: const EdgeInsets.only(top: 10.0),
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(title,
-                    style: textStyle(16, Colors.black, FontWeight.w600)),
+              Text(title, style: textStyle(16, Colors.black, FontWeight.w600)),
               const SizedBox(
                 height: 3,
               ),
@@ -44,9 +44,14 @@ class NewsHeadline extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(author,
-                        style: textStyle(14, Colors.grey, FontWeight.bold)),
-                    Text(DateFormat.yMd().format(DateTime.parse(date)),
+                    Expanded(
+                      child: Text(author,
+                          style: textStyle(14, Colors.grey, FontWeight.bold)),
+                    ),
+                    Text(
+                        date == ''
+                            ? ''
+                            : DateFormat.yMd().format(DateTime.parse(date)),
                         style: textStyle(14, Colors.grey, FontWeight.bold))
                   ],
                 ),

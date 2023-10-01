@@ -14,7 +14,7 @@ class NewsModel {
         title = json['title'],
         description = json['description'],
         img = json['urlToImage'],
-        date = json['publieshAt'],
+        date = json['publishedAt'],
         url = json['url'];
 }
 
