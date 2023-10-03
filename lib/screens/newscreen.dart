@@ -33,19 +33,23 @@ class _NewsScreenState extends State<NewsScreen> {
           style: textStyle(25, Colors.black, FontWeight.w700),
         ),
         actions: [
-          DropdownButton(
-            dropdownColor: Colors.white,
-            value: "us",
-            style: textStyle(20, Colors.black, FontWeight.w700),
-              items: countrycodes.map((code) {
-                return DropdownMenuItem(
-                  value: code,
-                  child: Text(code)
+          StreamBuilder(
+              stream: selectCategoryBloc?.countryStream,
+              initialData: selectCategoryBloc?.defaultCountry,
+              builder: (context, snapshot) {
+                return DropdownButton(
+                  dropdownColor: Colors.white,
+                  value: snapshot.data,
+                  style: textStyle(20, Colors.black, FontWeight.w700),
+                  items: countrycodes.map((code) {
+                    return DropdownMenuItem(value: code, child: Text(code));
+                  }).toList(),
+                  iconSize: 22,
+                  onChanged: (value) {
+                    selectCategoryBloc?.selectCountry(value as String);
+                  },
                 );
-              }).toList(),
-            iconSize: 22,
-            onChanged:(value) => print(value),
-          )
+              })
         ],
       ),
       body: SingleChildScrollView(
@@ -55,33 +59,41 @@ class _NewsScreenState extends State<NewsScreen> {
               height: 20,
             ),
             StreamBuilder(
-                stream: selectCategoryBloc!.categoryStream,
+                stream: selectCategoryBloc?.categoryStream,
                 builder: (context, snapshot) {
-                  return SingleChildScrollView(
-                    physics: const ScrollPhysics(),
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: categories.map((category) {
-                        return Padding(
-                          padding: const EdgeInsets.only(left: 15),
-                          child: InkWell(
-                            onTap: () {
-                              selectCategoryBloc!.selectCategory(category);
-                            },
-                            child: Text(
-                              category,
-                              style: textStyle(
-                                  23,
-                                  snapshot.data == category
-                                      ? Colors.black
-                                      : Colors.grey,
-                                  FontWeight.w600),
-                            ),
+                  return StreamBuilder(
+                      stream: selectCategoryBloc?.countryStream,
+                      initialData: selectCategoryBloc?.defaultCategory,
+                      builder: (context, countrySnapshot) {
+                        return SingleChildScrollView(
+                          physics: const ScrollPhysics(),
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: categories.map((category) {
+                              return Padding(
+                                padding: const EdgeInsets.only(left: 15),
+                                child: InkWell(
+                                  onTap: () {
+                                    selectCategoryBloc
+                                        ?.selectCategory(category);
+                                    getNewsBloc?.getNews(
+                                        snapshot.data, countrySnapshot.data);
+                                  },
+                                  child: Text(
+                                    category,
+                                    style: textStyle(
+                                        23,
+                                        snapshot.data == category
+                                            ? Colors.black
+                                            : Colors.grey,
+                                        FontWeight.w600),
+                                  ),
+                                ),
+                              );
+                            }).toList(),
                           ),
                         );
-                      }).toList(),
-                    ),
-                  );
+                      });
                 }),
             const SizedBox(
               height: 20,
@@ -101,10 +113,10 @@ class _NewsScreenState extends State<NewsScreen> {
                       itemBuilder: (context, index) {
                         NewsModel news = newsList![index];
                         return NewsHeadline(
-                            news.author == null ? '' : news.author,
+                            news.author ?? '',
                             news.title == null ? '' : news.title,
                             news.description == null ? '' : news.title,
-                            news.img == null ? '' : news.title,
+                            news.img == null ? '' : news.img,
                             news.date == null ? '' : news.date,
                             news.url == null ? '' : news.url);
                       });
