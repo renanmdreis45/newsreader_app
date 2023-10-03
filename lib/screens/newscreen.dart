@@ -27,11 +27,27 @@ class _NewsScreenState extends State<NewsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: Colors.yellowAccent,
-          title: Text(
-            'Newsreader App',
-            style: textStyle(25, Colors.black, FontWeight.w700),
-          )),
+        backgroundColor: Colors.yellowAccent,
+        title: Text(
+          'Newsreader App',
+          style: textStyle(25, Colors.black, FontWeight.w700),
+        ),
+        actions: [
+          DropdownButton(
+            dropdownColor: Colors.white,
+            value: "us",
+            style: textStyle(20, Colors.black, FontWeight.w700),
+              items: countrycodes.map((code) {
+                return DropdownMenuItem(
+                  value: code,
+                  child: Text(code)
+                );
+              }).toList(),
+            iconSize: 22,
+            onChanged:(value) => print(value),
+          )
+        ],
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
