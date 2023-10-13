@@ -1,27 +1,53 @@
+// import 'dart:async';
+// import 'package:newsreader_app/utils/utils.dart';
+
+// class SelectCategoryBloc {
+//   final StreamController categoryController = StreamController.broadcast();
+//   Stream get categoryStream => categoryController.stream;
+
+//   final StreamController countryController = StreamController.broadcast();
+//   Stream get countryStream => countryController.stream;
+
+//   String defaultCategory = categories[0];
+
+//   String defaultCountry = "us";
+
+//   void selectCategory(String category) {
+//     categoryController.sink.add(category);
+//   }
+
+//   void selectCountry(String code) {
+//     countryController.sink.add(code);
+//   }
+
+//   dispose() {
+//     categoryController?.close();
+//     countryController?.close();
+//   }
+// }
 import 'dart:async';
+
+import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newsreader_app/utils/utils.dart';
 
-class SelectCategoryBloc {
-  final StreamController categoryController = StreamController.broadcast();
-  Stream get categoryStream => categoryController.stream;
+sealed class SelectCategoryEvent {}
 
-  final StreamController countryController = StreamController.broadcast();
-  Stream get countryStream => countryController.stream;
+final class SelectCategory extends SelectCategoryEvent {}
 
-  String defaultCategory = categories[0];
+class SelectCategoryBloc extends Bloc<SelectCategoryEvent, String> {
+  static const String defaultCategory = "General";
 
-  String defaultCountry = "us";
+  StreamSubscription<String>? _selectSubscription;
 
-  void selectCategory(String category) {
-    categoryController.sink.add(category);
+  SelectCategoryBloc() : super(defaultCategory) {
+    on<SelectCategory>(_selectCategory);
   }
 
-  void selectCountry(String code) {
-    countryController.sink.add(code);
+  Future<void> close() {
+    _selectSubscription?.cancel();
+    return super.close();
   }
 
-  dispose() {
-    categoryController?.close();
-    countryController?.close();
-  }
+  void _selectCategory(SelectCategory event, Emitter<)
 }

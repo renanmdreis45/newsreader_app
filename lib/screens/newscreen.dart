@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:newsreader_app/models/newsmodel.dart';
 import 'package:newsreader_app/utils/utils.dart';
 import 'package:newsreader_app/widgets/newsheadline.dart';
-import 'package:newsreader_app/bloc/get_news_bloc.dart';
+import 'package:newsreader_app/bloc/news/get_news_bloc.dart';
 import 'package:newsreader_app/bloc/select_category_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class NewsScreen extends StatefulWidget {
   const NewsScreen({super.key});
@@ -33,23 +34,39 @@ class _NewsScreenState extends State<NewsScreen> {
           style: textStyle(25, Colors.black, FontWeight.w700),
         ),
         actions: [
-          StreamBuilder(
-              stream: selectCategoryBloc?.countryStream,
-              initialData: selectCategoryBloc?.defaultCountry,
-              builder: (context, snapshot) {
-                return DropdownButton(
-                  dropdownColor: Colors.white,
-                  value: snapshot.data,
-                  style: textStyle(20, Colors.black, FontWeight.w700),
-                  items: countrycodes.map((code) {
-                    return DropdownMenuItem(value: code, child: Text(code));
-                  }).toList(),
-                  iconSize: 22,
-                  onChanged: (value) {
-                    selectCategoryBloc?.selectCountry(value as String);
-                  },
-                );
-              })
+          BlocBuilder<BlocA, BlocAState>(
+            builder: (context, state) {
+              return DropdownButton(
+                dropdownColor: Colors.white,
+                value: state,
+                style: textStyle(20, Colors.black, FontWeight.w700),
+                items: countrycodes.map((code) {
+                  return DropdownMenuItem(value: code, child: Text(code))
+                }).toList(),
+                iconSize: 22,
+                onChanged: (value) {
+                  
+                },
+              );
+            },
+          )
+          // StreamBuilder(
+          //     stream: selectCategoryBloc?.countryStream,
+          //     initialData: selectCategoryBloc?.defaultCountry,
+          //     builder: (context, snapshot) {
+          //       return DropdownButton(
+          //         dropdownColor: Colors.white,
+          //         value: snapshot.data,
+          //         style: textStyle(20, Colors.black, FontWeight.w700),
+          //         items: countrycodes.map((code) {
+          //           return DropdownMenuItem(value: code, child: Text(code));
+          //         }).toList(),
+          //         iconSize: 22,
+          //         onChanged: (value) {
+          //           selectCategoryBloc?.selectCountry(value as String);
+          //         },
+          //       );
+          //     })
         ],
       ),
       body: SingleChildScrollView(
