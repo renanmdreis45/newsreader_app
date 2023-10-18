@@ -2,8 +2,11 @@ import 'package:bloc/bloc.dart';
 import 'package:newsreader_app/models/newsmodel.dart';
 import 'dart:async';
 import 'package:rxdart/rxdart.dart';
-import 'package:newsreader_app/repository/newsrepository.dart';
+import 'package:newsreader_app/repository/repository.dart';
 import 'package:stream_transform/stream_transform.dart';
+import 'package:newsreader_app/models/newsmodel.dart';
+import 'package:equatable/equatable.dart';
+part 'news_state.dart';
 
 const throttleDuration = Duration(milliseconds: 100);
 

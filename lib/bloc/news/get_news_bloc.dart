@@ -1,5 +1,5 @@
 import 'package:newsreader_app/models/newsmodel.dart';
-import 'package:newsreader_app/repository/newsrepository.dart';
+import 'package:newsreader_app/repository/repository.dart';
 import 'package:rxdart/rxdart.dart';
 
 class GetNewsBloc {

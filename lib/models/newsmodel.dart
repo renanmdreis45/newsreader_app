@@ -1,13 +1,18 @@
 class NewsModel {
-  final String author;
-  final String title;
-  final String description;
-  final String img;
-  final String date;
-  final String url;
-
-  NewsModel(
+  const NewsModel(
       this.author, this.title, this.description, this.img, this.date, this.url);
+
+  final String? author;
+
+  final String? title;
+
+  final String? description;
+
+  final String? img;
+
+  final String? date;
+
+  final String? url;
 
   NewsModel.fromJson(Map<String, dynamic> json)
       : author = json['author'],
@@ -16,6 +21,10 @@ class NewsModel {
         img = json['urlToImage'],
         date = json['publishedAt'],
         url = json['url'];
+  
+
+  static const empty = NewsModel(author: "", title: "", description: "", img: "", date: "", url: "")
+
 }
 
 class NewsResponse {
