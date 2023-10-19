@@ -1,6 +1,11 @@
 class NewsModel {
-  const NewsModel(
-      this.author, this.title, this.description, this.img, this.date, this.url);
+  const NewsModel({
+      this.author, 
+      this.title, 
+      this.description, 
+      this.img, 
+      this.date, 
+      this.url});
 
   final String? author;
 
