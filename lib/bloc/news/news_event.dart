@@ -5,8 +5,8 @@ sealed class NewsEvent {
   const NewsEvent();
 }
 
-final class FetchNews extends NewsEvent {
-  const FetchNews(this.news);
+final class ChangeNews extends NewsEvent {
+  const ChangeNews(this.news);
 
   final NewsModel news;
 }

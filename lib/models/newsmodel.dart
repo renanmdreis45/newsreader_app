@@ -1,10 +1,10 @@
 class NewsModel {
-  const NewsModel({
-      this.author, 
-      this.title, 
-      this.description, 
-      this.img, 
-      this.date, 
+  const NewsModel(
+      {this.author,
+      this.title,
+      this.description,
+      this.img,
+      this.date,
       this.url});
 
   final String? author;
@@ -26,10 +26,9 @@ class NewsModel {
         img = json['urlToImage'],
         date = json['publishedAt'],
         url = json['url'];
-  
 
-  static const empty = NewsModel(author: "", title: "", description: "", img: "", date: "", url: "")
-
+  static const empty = NewsModel(
+      author: "", title: "", description: "", img: "", date: "", url: "");
 }
 
 class NewsResponse {
