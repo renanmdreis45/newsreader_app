@@ -15,11 +15,12 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
         super(const NewsState.unknown()) {
     on<ChangeNews>(_fetchNews as EventHandler<ChangeNews, NewsState>);
   }
-  final NewsRepository newsRepository;
+
+  final NewsRepository _newsRepository;
   late final StreamSubscription<NewsModel> _newsSubscription;
 
   Future<NewsResponse> _fetchNews(String category, String country) async {
-    final NewsResponse news = await newsRepository.getNews(category, country);
+    final NewsResponse news = await _newsRepository.getNews(category, country);
     return news;
   }
 
