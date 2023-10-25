@@ -7,6 +7,8 @@ final class NewsState extends Equatable {
 
   final NewsModel news;
 
+  const NewsState.unknown() : this._();
+
   @override
   List<Object> get props => [news];
 }

@@ -12,7 +12,7 @@ part 'news_event.dart';
 class NewsBloc extends Bloc<NewsEvent, NewsState> {
   NewsBloc({required NewsRepository newsRepository})
       : _newsRepository = newsRepository,
-        super() {
+        super(const NewsState.unknown()) {
     on<ChangeNews>(_fetchNews as EventHandler<ChangeNews, NewsState>);
   }
   final NewsRepository newsRepository;
