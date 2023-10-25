@@ -3,7 +3,7 @@ import 'package:newsreader_app/models/newsmodel.dart';
 import 'package:newsreader_app/utils/utils.dart';
 import 'package:newsreader_app/widgets/newsheadline.dart';
 import 'package:newsreader_app/bloc/news/get_news_bloc.dart';
-import 'package:newsreader_app/bloc/select_category_bloc.dart';
+import 'package:newsreader_app/bloc/category/category_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class NewsScreen extends StatefulWidget {

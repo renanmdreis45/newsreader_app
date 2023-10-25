@@ -25,11 +25,17 @@
 //     countryController?.close();
 //   }
 // }
+
+
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newsreader_app/utils/utils.dart';
+import 'package:equatable/equatable.dart';
+
+
+part 'category_state.dart';
 
 sealed class SelectCategoryEvent {}
 
