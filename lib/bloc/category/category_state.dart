@@ -2,11 +2,13 @@ part of 'category_bloc.dart';
 
 final class CategoryState extends Equatable {
   const CategoryState._({
-    this.defaultCategory = "General",
+    this.category = "General",
   });
 
-  final String defaultCategory;
+  final String category;
+
+  const CategoryState.initial() : this._();
 
   @override
-  List<Object> get props => [defaultCategory];
+  List<Object> get props => [category];
 }

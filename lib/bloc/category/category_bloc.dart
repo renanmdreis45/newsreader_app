@@ -26,7 +26,6 @@
 //   }
 // }
 
-
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
@@ -34,26 +33,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newsreader_app/utils/utils.dart';
 import 'package:equatable/equatable.dart';
 
-
 part 'category_state.dart';
+part 'category_event.dart';
 
-sealed class SelectCategoryEvent {}
-
-final class SelectCategory extends SelectCategoryEvent {}
-
-class SelectCategoryBloc extends Bloc<SelectCategoryEvent, String> {
-  static const String defaultCategory = "General";
-
-  StreamSubscription<String>? _selectSubscription;
-
-  SelectCategoryBloc() : super(defaultCategory) {
-    on<SelectCategory>(_selectCategory);
+class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
+  CategoryBloc() : super(const CategoryState.initial()) {
+    on<ChangeCategory>(
+        _changeCategory as EventHandler<CategoryEvent, CategoryState>);
   }
 
-  Future<void> close() {
-    _selectSubscription?.cancel();
-    return super.close();
-  }
+  void _changeCategory(ChangeCategory event, Emitter<CategoryState> emit) {
+    final newCategory = event.newCategory;
 
-  void _selectCategory(SelectCategory event, Emitter<)
+    emit(state.category = newCategor);
+  }
 }
