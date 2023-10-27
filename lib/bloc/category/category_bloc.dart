@@ -45,6 +45,6 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
   void _changeCategory(ChangeCategory event, Emitter<CategoryState> emit) {
     final newCategory = event.newCategory;
 
-    emit(state.category = newCategor);
+    emit(ChangeCa);
   }
 }
