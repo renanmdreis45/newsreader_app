@@ -1,11 +1,19 @@
 part of 'category_bloc.dart';
 
-sealed class CategoryEvent {
-  const CategoryEvent();
+class CategoryEvent extends Equatable {
+  @override
+  List<Object?> get props => [];
 }
 
-final class ChangeCategory extends CategoryEvent {
-  const ChangeCategory(this.newCategory);
+class GetCategories extends CategoryEvent {}
 
-  final String newCategory;
+class SelectCategory extends CategoryEvent {
+  SelectCategory({
+    required this.idSelected,
+  });
+
+  final int idSelected;
+
+  @override
+  List<Object?> get props => [idSelected];
 }
