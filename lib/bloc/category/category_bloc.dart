@@ -1,34 +1,7 @@
-// import 'dart:async';
-// import 'package:newsreader_app/utils/utils.dart';
-
-// class SelectCategoryBloc {
-//   final StreamController categoryController = StreamController.broadcast();
-//   Stream get categoryStream => categoryController.stream;
-
-//   final StreamController countryController = StreamController.broadcast();
-//   Stream get countryStream => countryController.stream;
-
-//   String defaultCategory = categories[0];
-
-//   String defaultCountry = "us";
-
-//   void selectCategory(String category) {
-//     categoryController.sink.add(category);
-//   }
-
-//   void selectCountry(String code) {
-//     countryController.sink.add(code);
-//   }
-
-//   dispose() {
-//     categoryController?.close();
-//     countryController?.close();
-//   }
-// }
-
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newsreader_app/utils/utils.dart';
 import 'package:equatable/equatable.dart';
@@ -37,14 +10,39 @@ part 'category_state.dart';
 part 'category_event.dart';
 
 class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
-  CategoryBloc() : super(const CategoryState.initial()) {
-    on<ChangeCategory>(
-        _changeCategory as EventHandler<CategoryEvent, CategoryState>);
+  CategoryBloc() : super(const CategoryState()) {
+    on<GetCategories>(_getAllCategories);
+    on<SelectCategory>(_selectCategory);
   }
 
-  void _changeCategory(ChangeCategory event, Emitter<CategoryState> emit) {
-    final newCategory = event.newCategory;
+  final allCategories = categories;
 
-    emit(ChangeCa);
+  void _getAllCategories(
+    GetCategories event, Emitter<CategoryState> emit) async {
+      emit(state.copyWith(
+        status: CategoryStatus.loading
+      ));
+
+      try {
+        final genres = categories;
+        emit(
+          state.copyWith(
+            status: CategoryStatus.sucess,
+            categories: genres,
+          )
+        );
+      } catch (error) {
+        emit(state.copyWith(status: CategoryStatus.error));
+      }
   }
+
+  void _selectCategory(SelectCategory event, Emitter<CategoryState> emit) async {
+    emit(
+      state.copyWith(
+        status: CategoryStatus.selected,
+        idSelected: event.idSelected,
+      )
+    );
+  }
+
 }
