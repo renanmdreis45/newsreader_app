@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:newsreader_app/models/newsmodel.dart';
 import 'dart:async';
-import 'package:rxdart/rxdart.dart';
 import 'package:newsreader_app/repository/repository.dart';
 import 'package:newsreader_app/models/newsmodel.dart';
 import 'package:equatable/equatable.dart';
