@@ -10,14 +10,14 @@ part 'category_state.dart';
 part 'category_event.dart';
 
 class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
-  CategoryBloc() : super(const CategoryState.initial()) {
+  CategoryBloc() : super(const CategoryState()) {
     on<SelectCategory>(
         _selectCategory as EventHandler<CategoryEvent, CategoryState>);
     on<GetCategories>(
-        _GetCategories as EventHandler<CategoryEvent, CategoryState>);
+        _getCategories as EventHandler<CategoryEvent, CategoryState>);
   }
 
-  void _GetCategories(GetCategories event, Emitter<CategoryState> emit) async {
+  void _getCategories(GetCategories event, Emitter<CategoryState> emit) async {
     emit(state.copyWith(status: CategoryStatus.loading));
 
     try {
@@ -33,5 +33,13 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
     }
   }
 
-  void _selectCategory() {}
+  void _selectCategory(
+      SelectCategory event, Emitter<CategoryState> emit) async {
+    emit(
+      state.copyWith(
+        status: CategoryStatus.selected,
+        idSelected: event.idSelected,
+      )
+    );
+  }
 }
