@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newsreader_app/bloc/category/category_bloc.dart';
 import 'package:newsreader_app/bloc/newsByCategory/newsByCategory_bloc.dart';
 import 'package:newsreader_app/repository/repository.dart';
-import 'package:newsreader_app/screens/newscreen.dart';
+import 'package:newsreader_app/ui/screens/newscreen.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
