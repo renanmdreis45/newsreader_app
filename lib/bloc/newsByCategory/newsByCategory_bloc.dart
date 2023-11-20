@@ -22,7 +22,15 @@ class NewsByCategoryBloc
       emit(state.copyWith(status: NewsByCategoryStatus.loading));
 
       final newsByCategory =
-          await newsRepository.getNewsByCategory(event.idSelected);
+          await newsRepository.getNewsByCategoryAndCountry(event.idCategorySelected, event.idCountrySelected);
+
+      emit(state.copyWith(
+        news: newsByCategory,
+        status: NewsByCategoryStatus.sucess,
+        categoryName: event.categoryName,
+        countryName: event.countryName,
+      ));
+
     } catch (error) {
       emit(state.copyWith(status: NewsByCategoryStatus.error));
     }

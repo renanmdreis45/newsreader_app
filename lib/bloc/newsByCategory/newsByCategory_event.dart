@@ -7,13 +7,18 @@ class NewsByCategoryEvent extends Equatable {
 
 class GetNewsByCategory extends NewsByCategoryEvent {
   GetNewsByCategory({
-    required this.idSelected,
+    required this.idCategorySelected,
+    required this.idCountrySelected,
     required this.categoryName,
+    required this.countryName,
   });
 
-  final int idSelected;
+  final int idCategorySelected;
+  final int idCountrySelected;
   final String categoryName;
+  final String countryName;
 
   @override
-  List<Object?> get props => [idSelected, categoryName];
+  List<Object?> get props =>
+      [idCategorySelected, idCountrySelected, categoryName, countryName];
 }

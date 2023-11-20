@@ -9,18 +9,20 @@ extension NewsByCategoryStatusX on NewsByCategoryStatus {
   bool get isLoading => this == NewsByCategoryStatus.loading;
 }
 
-
 class NewsByCategoryState extends Equatable {
   const NewsByCategoryState({
     this.status = NewsByCategoryStatus.initial,
     List<NewsModel>? news,
     String? categoryName,
-  }) : news = news ?? const [],
-       categoryName = categoryName ?? '';
-    
+    String? countryName,
+  })  : news = news ?? const [],
+        categoryName = categoryName ?? '',
+        countryName = countryName ?? '';
+
   final List<NewsModel>? news;
   final NewsByCategoryStatus status;
   final String categoryName;
+  final String countryName;
 
   @override
   List<dynamic> get props => [status, news, categoryName];
@@ -29,11 +31,12 @@ class NewsByCategoryState extends Equatable {
     List<NewsModel>? news,
     NewsByCategoryStatus? status,
     String? categoryName,
+    String? countryName,
   }) {
     return NewsByCategoryState(
-      news: news ?? this.news,
-      status: status ?? this.status,
-      categoryName:  categoryName ?? this.categoryName
-    );
+        news: news ?? this.news,
+        status: status ?? this.status,
+        categoryName: categoryName ?? this.categoryName,
+        countryName: countryName ?? this.countryName);
   }
 }
